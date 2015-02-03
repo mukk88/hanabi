@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hanabi", "Hanabi\Hanabi.csproj", "{0908FCC3-B3FB-4839-9A89-D95305E42916}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{B18D5AB5-0958-403F-AE82-F8803DCDD0F5}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{EE76D39E-2E62-4B5E-B120-A2A7EB07B6A4}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\Hanabi-WAWS-dev.json = PublishScripts\Configurations\Hanabi-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B430F093-0648-4A48-BC16-82E1D7559861}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0908FCC3-B3FB-4839-9A89-D95305E42916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0908FCC3-B3FB-4839-9A89-D95305E42916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0908FCC3-B3FB-4839-9A89-D95305E42916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0908FCC3-B3FB-4839-9A89-D95305E42916}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE76D39E-2E62-4B5E-B120-A2A7EB07B6A4} = {B18D5AB5-0958-403F-AE82-F8803DCDD0F5}
+	EndGlobalSection
+EndGlobal

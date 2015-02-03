@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="StorageConnectionString-Web.config Connection String" description="StorageConnectionString Connection String used in web.config by the application to access the database." defaultValue="DefaultEndpointsProtocol=https;AccountName=mukkstoragetable;AccountKey=Y1lhu90KJf5IdKAr10hFVhkJ9w8cl+XZ5LPDgQRPljGt+tVTz19G7uVECd/oEGqz9UIeh+vDPWS1jLs/syc6Yg==" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\markwoo\\Documents\\Visual\ Studio\ 2013\\Projects\\Hanabi\\Hanabi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='StorageConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:q9pcbxobvw.database.windows.net,1433;Database=hanabiusers;User ID=mukk88@q9pcbxobvw;Password=2121988Mm;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\markwoo\\Documents\\Visual\ Studio\ 2013\\Projects\\Hanabi\\Hanabi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

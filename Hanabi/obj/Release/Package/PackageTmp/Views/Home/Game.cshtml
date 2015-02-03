@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Game";
+}
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div id="username">@User.Identity.GetUserName()</div>
+    <header>
+        <div class="header-container">
+            <div id="backbutton">
+                <img src=@Url.Content("~/Content/hanabi/appbar.back.png")>
+            </div>
+            <div id="gamename">Hanabi</div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="hands main">
+            <div class="move button" id="use">Play</div>
+            <div class="move button" id="clue">Clue</div>
+            <div class="move button" id="discard">Throw</div>
+            <div class="title third" id="clues"></div>
+            <div class="title third" id="burns"></div>
+            <div class="title third" id="deck"></div>
+            <div id="dialog">Do you want to give a clue about the suit or the number?</div>
+            <div class="hands-built"></div>
+        </div>
+        <div class="whitespace"></div>
+    </div>
+    <footer>
+        <div class="buttonbar">
+            <div class="buttonbottom selected" id="buttonhands">
+                <div id="playernum"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var gameID = "@ViewBag.gameid";
+    </script>
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
+    @Scripts.Render("~/Scripts/hanabi/signalr.js")
+    @Scripts.Render("~/Scripts/hanabi/game.js")
+}
+else
+{
+    <div>Please log in to play</div>
+}
+
