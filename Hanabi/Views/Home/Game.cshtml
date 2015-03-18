@@ -5,33 +5,35 @@
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    <div id="username">@User.Identity.GetUserName()</div>
-    <header>
-        <div class="header-container">
-            <div class="title third" id="clues"></div>
-            <div class="title third" id="burns"></div>
-            <div class="title third" id="deck"></div>
-        </div>
-    </header>
-    <div class="container">
-        <div class="hands main">
-            <div class="move button" id="use" style="display:none">Play</div>
-            <div class="move button" id="clue" style="display:none">Clue</div>
-            <div class="move button" id="discard" style="display:none">Throw</div>
-
-            <div id="dialog">Do you want to give a clue about the suit or the number?</div>
-            <div id="lastmove" style="display:none"></div>
-            <div class="hands-built"></div>
-        </div>
-        <div class="whitespace"></div>
-    </div>
-    <footer>
-        <div class="buttonbar">
-            <div class="buttonbottom selected" id="buttonhands">
-                <div id="playernum"></div>
+    <div class="game">
+        <div id="username">@User.Identity.GetUserName()</div>
+        <header>
+            <div class="header-container">
+                <div class="title third" id="clues"></div>
+                <div class="title third" id="burns"></div>
+                <div class="title third" id="deck"></div>
             </div>
+        </header>
+        <div class="container">
+            <div class="hands main">
+                <div class="move button" id="use" style="display:none">Play</div>
+                <div class="move button" id="clue" style="display:none">Clue</div>
+                <div class="move button" id="discard" style="display:none">Throw</div>
+
+                <div id="dialog">Do you want to give a clue about the suit or the number?</div>
+                <div id="lastmove" style="display:none"></div>
+                <div class="hands-built"></div>
+            </div>
+            <div class="whitespace"></div>
         </div>
-    </footer>
+        <footer>
+            <div class="buttonbar">
+                <div class="buttonbottom selected" id="buttonhands">
+                    <div id="playernum"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
         var gameID = "@ViewBag.gameid";

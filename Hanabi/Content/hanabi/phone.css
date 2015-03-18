@@ -1,6 +1,6 @@
 ﻿body{
   overflow-y: auto;
-  background-color:#a3a3a3;
+  /*background-color:#a3a3a3;*/
 }
 
 /*index */
@@ -17,6 +17,7 @@
 /*game*/
 
 .header-container{
+    position:fixed;
     width:100%;
     background-color:rgb(20, 40, 160);
     top:0;
@@ -63,6 +64,9 @@ footer{
   width:100%;
   /*margin-top:2.7em;*/
   font-family: 'Open Sans';
+}
+
+.game .container{
   background: linear-gradient(#a3a3a3, #f3f3f3);
 }
 
@@ -240,6 +244,7 @@ footer{
   background-color: linear-gradient(#f3f3f3, #ffffff);
 }
 
+
 #lastmove{
     background-color: white;
     border: 1px solid black;
@@ -247,7 +252,7 @@ footer{
     padding: 0.5em 1em;
     position: absolute;
     left: 10%;
-    top: 3em;
+    top: 1.5em;
     border-radius: 5px;
 }
 
@@ -256,6 +261,10 @@ footer{
 .main
 .container.index{
     overflow:auto;
+}
+
+.main{
+    margin-top:2.7em;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -273,9 +282,51 @@ input[type=number] {-moz-appearance: textfield;}
     margin-right:1em;
 }
 
-.container.index input{
+.container.index input[type=text],
+.container.index input[type=number],
+.container.index input[type=password],
+.container.index input[type=submit]{
     width:80%;
     margin-left:10%;
     padding:0.5em 1em;
     margin-bottom:1em;
+}
+
+#username{
+    position:fixed;
+    padding:0.5em 1em;
+    font-size:1.4em;
+}
+
+#register,
+#logout{
+    position:fixed;
+    right:1em;
+    top:0.8em;
+}
+
+#logout a,
+#register a{
+    text-decoration:none;
+    color:white;
+}
+
+.label{
+    margin-left:2.5em;
+    margin-bottom:0.5em;
+}
+
+.title2{
+    width:100%;
+    text-align:center;
+    font-size:1.5em;
+    margin:1em 0em;
+}
+
+.form-control{
+    margin-top:1em;
+}
+
+.text-danger li{
+    padding: 0em 0em 1em 2em;
 }
