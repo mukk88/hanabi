@@ -11,6 +11,7 @@ $(function () {
     var user = $('#username').html();
     //relocate if username is null
     $('#username').hide();
+    $('#lastmove').hide();
 
     var mapping = {};
     mapping['0'] = '/Content/hanabi/dark/club.png';
@@ -38,8 +39,12 @@ $(function () {
     $('#dialog').hide();
     if (gameID != '') {
 
-        var cardClickable= function () {
+        var cardClickable= function (isself) {
             $('.self .card').click(function () {
+                //if (!isself) {
+                //    alert('please wait for your turn');
+                //    return;
+                //}
                 $('.move').hide();
                 $('#discard').show();
                 $('#use').show();
@@ -48,6 +53,10 @@ $(function () {
             });
 
             $('.player .card').click(function () {
+                //if (!isself) {
+                //    alert('please wait for your turn');
+                //    return;
+                //}
                 $('.move').hide();
                 $('#clue').show();
                 $('.self .card').removeClass('selected');
@@ -117,7 +126,8 @@ $(function () {
             console.log(data);
             if (!data) return;
             $('.hands-built').html('');
-            $('#gamename').html(data.game_name)
+            $('.move').hide();
+            //$('#gamename').html(data.game_name)
             addToDom('Table', 'Table', data.table, true, false, 0);
             for (var i = 0; i < data.players.length; i++) {
                 if (data.users[i] != user) {
@@ -127,13 +137,22 @@ $(function () {
                 }
             }
             addToDom('discard', 'Discards', data.discards, false, false, 0);
-            cardClickable();
             $('#clues').html('Clues: ' + data.clues);
             $('#burns').html('Burns: ' + data.burns);
             $('#deck').html('Deck: ' + data.deck.length);
 
             var turn = (data.turn % data.num_players);
+            cardClickable(data.users[turn] == user);
             $('#playernum').html((data.users[turn] == '' ? data.players[turn].name + '\'s' : data.users[turn] == user ? 'Your' : data.users[turn] + '\'s') + ' turn');
+
+            if (parseInt($('#clues').html().split('Burns: ')[1]) <= 0) {
+                alert('You lost!');
+            }
+
+            if (data.last_move != '') {
+                $('#lastmove').html(data.last_move).show().delay(3500).fadeOut('slow');
+            }
+
         }
 
         $.ajax({
@@ -146,8 +165,12 @@ $(function () {
             }
         });
 
-        var cluePost = function (to, indexes, isnum) {
+        var cluePost = function (to, indexes, isnum, cardInfos) {
             var formData = { username: user, to: to, game_id: gameID, indexes:indexes, isnum:isnum };
+            if (!checkIfOtherValidCards(isnum, to, cardInfos)) {
+                alert("that is not a valid clue");
+                return;
+            }
 
             $.ajax({
                 url: '/home/clue',
@@ -193,11 +216,44 @@ $(function () {
             useOrDiscard(false);
         });
 
+        var checkIfOtherValidCards = function (isnum, playerToHint, cardInfos) {
+            var count = 0;
+            //find number or suit of the card
+            var toCompare = cardInfos[0];
+            // check number of cards of that suit.
+            if (isnum) {
+                $('#container' + playerToHint + ' .card').each(function () {
+                    if ($(this).text() == toCompare) {
+                        count++;
+                    }
+                });
+            } else {
+                $('#container' + playerToHint+ ' .card img:visible').each(function () {
+                    if ($(this).attr('title') == toCompare) {
+                        count++;
+                    }
+                });
+            }
+            // check if tally
+            if (count == cardInfos.length) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         $('#clue').click(function () {
+            if (parseInt($('#clues').html().split('Clues: ')[1]) <= 0) {
+                alert('there are no more clues to give');
+                return;
+            }
+
             if ($('.player .card.selected').length < 1) {
                 alert('please select at least one card');
                 return;
             }
+
+            //check that they are giving valid clue not 1 when there are 2 1's
 
             var playerToHint = '';
             var suits = [];
@@ -226,17 +282,16 @@ $(function () {
                 indexes += parseInt($(this).attr('title')) + ',';
             });
             indexes = indexes.substring(0, indexes.length - 1)
-            var stringToSend = ' told ' + playerToHint + ' that cards ' + indexes.substring(0, indexes.length - 2) + ' are ';
             if (nums.allValuesSame() && suits.allValuesSame()) {
                 $('#dialog').dialog({
                     modal: true,
                     buttons: {
                         'Suit': function () {
-                            cluePost(playerToHint, indexes, false);
+                            cluePost(playerToHint, indexes, false, suits);
                             $(this).dialog('close');
                         },
                         'Number': function () {
-                            cluePost(playerToHint, indexes, true);
+                            cluePost(playerToHint, indexes, true, nums);
                             $(this).dialog('close');
                         }
                     }
@@ -245,11 +300,11 @@ $(function () {
             }
 
             if (nums.allValuesSame()) {
-                cluePost(playerToHint, indexes,true);
+                cluePost(playerToHint, indexes,true, nums);
                 return;
             }
             if (suits.allValuesSame()) {
-                cluePost(playerToHint, indexes, false);
+                cluePost(playerToHint, indexes, false, suits);
                 return;
             }
             alert('cards have to be either of the same suit or same number');

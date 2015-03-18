@@ -24,6 +24,8 @@ namespace Hanabi
 
         public string discards { get; set; }
 
+        public string last_move { get; set; }
+
         public GameEntity() { }
         public GameEntity(GameData game)
         {
@@ -39,6 +41,7 @@ namespace Hanabi
             this.table = JsonConvert.SerializeObject(game.getTable());
             this.users = JsonConvert.SerializeObject(game.getUsers());
             this.discards = JsonConvert.SerializeObject(game.getDiscards());
+            this.last_move = game.last_move;
         }
 
         public GameData gameData()

@@ -65,11 +65,15 @@ namespace Hanabi.Controllers
         }
 
         [HttpPost]
-        [Route("game")]
+        [Route("create")]
         public HttpResponseMessage Create()
         {
+            //might wanna check who created it and store it.
+            var form = Request.Form;
             string guid =  Guid.NewGuid().ToString();
-            GameData gameData = new GameData(4, guid, "my game");
+            var gameName = form["game_name"];
+            var numPlayers = Convert.ToInt32(form["num_players"]);
+            GameData gameData = new GameData(numPlayers, guid, gameName);
             GameEntity gameEntity = new GameEntity(gameData);
             Storage storage = new Storage();
             storage.insert(gameEntity);

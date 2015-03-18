@@ -77,6 +77,7 @@ namespace Hanabi
                 var index = gameData.getUsers().IndexOf("");
                 gameData.getUsers().RemoveAt(index);
                 gameData.getUsers().Insert(index,username);
+                gameData.last_move = username + " just joined the game";
 
                 updateEntity = new GameEntity(gameData);
                 TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(updateEntity);
@@ -108,7 +109,7 @@ namespace Hanabi
                         gameData.getPlayers()[to].getHand()[indexes[i]].suitinfo = true;
                     }
                 }
-
+                gameData.last_move = username + " gave " + gameData.getUsers()[to] + " a clue";
                 gameData.clues--;
                 gameData.turn++;
                 updateEntity = new GameEntity(gameData);
@@ -133,8 +134,12 @@ namespace Hanabi
                 CardData discardCard = gameData.getPlayers()[index].getHand()[card_index];
                 gameData.getDiscards().Add(discardCard);
                 gameData.getPlayers()[index].getHand().RemoveAt(card_index);
-                CardData card = gameData.getDeck().Pop();
-                gameData.getPlayers()[index].getHand().Add(card);
+                if(gameData.getDeck().Count > 0)
+                {
+                    CardData card = gameData.getDeck().Pop();
+                    gameData.getPlayers()[index].getHand().Add(card);
+                }
+                gameData.last_move = username + " discarded a card";
                 gameData.turn++;
                 updateEntity = new GameEntity(gameData);
                 TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(updateEntity);
@@ -175,9 +180,13 @@ namespace Hanabi
                 }
 
                 gameData.getPlayers()[index].getHand().RemoveAt(card_index);
-                CardData card = gameData.getDeck().Pop();
-                gameData.getPlayers()[index].getHand().Add(card);
+                if (gameData.getDeck().Count > 0)
+                {
+                    CardData card = gameData.getDeck().Pop();
+                    gameData.getPlayers()[index].getHand().Add(card);
+                }
                 gameData.turn++;
+                gameData.last_move = username + " played a card";
 
                 updateEntity = new GameEntity(gameData);
                 TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(updateEntity);

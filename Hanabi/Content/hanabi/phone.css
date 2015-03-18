@@ -6,7 +6,7 @@
 /*index */
 
 .index .title{
-    padding:2em;
+    padding:1em;
 }
 
 .index .game{
@@ -56,6 +56,7 @@ footer{
 .button{
     padding:0.5em 1em;
     border:1px solid;
+    cursor:pointer;
 }
 
 .container{
@@ -237,4 +238,44 @@ footer{
   width:100%;
   height:8em;
   background-color: linear-gradient(#f3f3f3, #ffffff);
+}
+
+#lastmove{
+    background-color: white;
+    border: 1px solid black;
+    width: 80%;
+    padding: 0.5em 1em;
+    position: absolute;
+    left: 10%;
+    top: 3em;
+    border-radius: 5px;
+}
+
+/*for index page*/
+
+.main
+.container.index{
+    overflow:auto;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] {-moz-appearance: textfield;}
+
+#addgame{
+    width:8em;
+    margin-left:2em;
+    float:right;
+    margin-right:1em;
+}
+
+.container.index input{
+    width:80%;
+    margin-left:10%;
+    padding:0.5em 1em;
+    margin-bottom:1em;
 }

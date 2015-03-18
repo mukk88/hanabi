@@ -8,21 +8,19 @@
     <div id="username">@User.Identity.GetUserName()</div>
     <header>
         <div class="header-container">
-            <div id="backbutton">
-                <img src=@Url.Content("~/Content/hanabi/appbar.back.png")>
-            </div>
-            <div id="gamename">Hanabi</div>
+            <div class="title third" id="clues"></div>
+            <div class="title third" id="burns"></div>
+            <div class="title third" id="deck"></div>
         </div>
     </header>
     <div class="container">
         <div class="hands main">
-            <div class="move button" id="use">Play</div>
-            <div class="move button" id="clue">Clue</div>
-            <div class="move button" id="discard">Throw</div>
-            <div class="title third" id="clues"></div>
-            <div class="title third" id="burns"></div>
-            <div class="title third" id="deck"></div>
+            <div class="move button" id="use" style="display:none">Play</div>
+            <div class="move button" id="clue" style="display:none">Clue</div>
+            <div class="move button" id="discard" style="display:none">Throw</div>
+
             <div id="dialog">Do you want to give a clue about the suit or the number?</div>
+            <div id="lastmove" style="display:none"></div>
             <div class="hands-built"></div>
         </div>
         <div class="whitespace"></div>

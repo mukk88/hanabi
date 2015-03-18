@@ -30,6 +30,8 @@ namespace Hanabi
         public List<CardData> discards = new List<CardData>();
         public List<string> users;
 
+        public string last_move;
+
 
         public GameData(GameEntity entity)
         {
@@ -44,6 +46,7 @@ namespace Hanabi
             this.table = JsonConvert.DeserializeObject<List<int>>(entity.table);
             this.users = JsonConvert.DeserializeObject<List<string>>(entity.users);
             this.discards = JsonConvert.DeserializeObject<List<CardData>>(entity.discards);
+            this.last_move = entity.last_move;
         }
 
         public GameData(int num_players, string game_id, string game_name){
@@ -85,6 +88,7 @@ namespace Hanabi
             {
                 users.Add("");
             }
+            last_move = "";
         }
 
         public List<PlayerData> getPlayers()
@@ -109,18 +113,6 @@ namespace Hanabi
         public List<CardData> getDiscards()
         {
             return discards;
-        }
-
-        public override string ToString()
-        {
-
-            string infoString = String.Format("number of players {0} <br/> ", num_players);
-            string playersString = "";
-            for (int i = 0; i < players.Count; i++)
-            {
-                playersString += players[i].ToString();
-            }
-            return String.Format("{0} <br/> {1}", infoString, playersString);
         }
 
         private void Shuffle(List<CardData> list)  
