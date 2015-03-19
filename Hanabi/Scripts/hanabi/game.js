@@ -145,6 +145,12 @@ $(function () {
             cardClickable(data.users[turn] == user);
             $('#playernum').html((data.users[turn] == '' ? data.players[turn].name + '\'s' : data.users[turn] == user ? 'Your' : data.users[turn] + '\'s') + ' turn');
 
+            if (data.users[turn] == user) {
+                $('#buttonhands').css('background', 'linear-gradient(darkblue, blue)');
+            } else {
+                $('#buttonhands').css('background', 'linear-gradient(#2c2c2c,#4a4a4a)');
+            }
+
             if (parseInt($('#clues').html().split('Burns: ')[1]) <= 0) {
                 alert('You lost!');
             }

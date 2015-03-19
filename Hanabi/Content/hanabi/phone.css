@@ -1,6 +1,6 @@
 ﻿body{
   overflow-y: auto;
-  /*background-color:#a3a3a3;*/
+  background-color:#f3f3f3;
 }
 
 /*index */
@@ -19,12 +19,14 @@
 .header-container{
     position:fixed;
     width:100%;
-    background-color:rgb(20, 40, 160);
+    /*background-color:rgb(20, 40, 160);*/
+    background: linear-gradient(#2e79fb, rgb(20,40,160));
     top:0;
     height:2.7em;
     color:#f3f3f3;
-    font-family: 'Halant', serif;
     border-bottom:1px solid black;
+    font-weight: 600;
+    font-family: Open Sans;
 }
 
 #gamename{
@@ -50,7 +52,6 @@ footer{
   position: fixed;
   bottom:0;
   width:100%;
-  background-color: grey;
   height:2.7em;
 }
 
@@ -67,7 +68,7 @@ footer{
 }
 
 .game .container{
-  background: linear-gradient(#a3a3a3, #f3f3f3);
+  /*background: linear-gradient(#a3a3a3, #f3f3f3);*/
 }
 
 .move{
@@ -103,8 +104,11 @@ footer{
 .title.third{
     width:33%;
     padding:0.7em 0.5em;
-    font-size:1.2em;
     float:left;
+}
+
+.Table{
+    padding: 1em 0em 0em 0em;
 }
 
 .player{
@@ -212,10 +216,8 @@ footer{
 .buttonbar .buttonbottom{
   height:2.7em;
   width:100%;
-  background-color: rgba(0,0,0,0.6);
+  background: linear-gradient(#2c2c2c,#4a4a4a);
   float:left;
-  border-left:1px solid black;
-  cursor: pointer;
   text-align:center;
   color:white;
 }
@@ -275,13 +277,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {-moz-appearance: textfield;}
 
-#addgame{
-    width:8em;
-    margin-left:2em;
-    float:right;
-    margin-right:1em;
-}
-
 .container.index input[type=text],
 .container.index input[type=number],
 .container.index input[type=password],
@@ -294,8 +289,10 @@ input[type=number] {-moz-appearance: textfield;}
 
 #username{
     position:fixed;
-    padding:0.5em 1em;
-    font-size:1.4em;
+    padding:0.6em 1em;
+    font-size:1.2em;
+    width: 60%;
+    overflow: hidden;
 }
 
 #register,
@@ -321,6 +318,7 @@ input[type=number] {-moz-appearance: textfield;}
     text-align:center;
     font-size:1.5em;
     margin:1em 0em;
+    font-weight: 600;
 }
 
 .form-control{

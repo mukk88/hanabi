@@ -5,6 +5,13 @@
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+    <script>
+        var gameID = "@ViewBag.gameid";
+    </script>
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
+    @Scripts.Render("~/Scripts/hanabi/signalr.js")
+    @Scripts.Render("~/Scripts/hanabi/game.js")
+    
     <div class="game">
         <div id="username">@User.Identity.GetUserName()</div>
         <header>
@@ -34,16 +41,10 @@
             </div>
         </footer>
     </div>
-
-    <script>
-        var gameID = "@ViewBag.gameid";
-    </script>
-    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
-    @Scripts.Render("~/Scripts/hanabi/signalr.js")
-    @Scripts.Render("~/Scripts/hanabi/game.js")
 }
 else
 {
+    // redirect
     <div>Please log in to play</div>
 }
 
