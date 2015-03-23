@@ -32,6 +32,8 @@ namespace Hanabi
 
         public string last_move;
 
+        public int last_turn_count;
+
 
         public GameData(GameEntity entity)
         {
@@ -47,6 +49,7 @@ namespace Hanabi
             this.users = JsonConvert.DeserializeObject<List<string>>(entity.users);
             this.discards = JsonConvert.DeserializeObject<List<CardData>>(entity.discards);
             this.last_move = entity.last_move;
+            this.last_turn_count = entity.last_turn_count;
         }
 
         public GameData(int num_players, string game_id, string game_name){
@@ -89,6 +92,7 @@ namespace Hanabi
                 users.Add("");
             }
             last_move = "";
+            last_turn_count = 0;
         }
 
         public List<PlayerData> getPlayers()

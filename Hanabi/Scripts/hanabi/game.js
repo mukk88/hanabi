@@ -8,7 +8,7 @@ Array.prototype.allValuesSame = function () {
     return true;
 }
 $(function () {
-    var user = $('#username').html();
+    var user = $('#username').html().trim();
     //relocate if username is null
     $('#username').hide();
     $('#lastmove').hide();
@@ -41,10 +41,10 @@ $(function () {
 
         var cardClickable= function (isself) {
             $('.self .card').click(function () {
-                //if (!isself) {
-                //    alert('please wait for your turn');
-                //    return;
-                //}
+                if (!isself) {
+                    alert('please wait for your turn');
+                    return;
+                }
                 $('.move').hide();
                 $('#discard').show();
                 $('#use').show();
@@ -53,10 +53,10 @@ $(function () {
             });
 
             $('.player .card').click(function () {
-                //if (!isself) {
-                //    alert('please wait for your turn');
-                //    return;
-                //}
+                if (!isself) {
+                    alert('please wait for your turn');
+                    return;
+                }
                 $('.move').hide();
                 $('#clue').show();
                 $('.self .card').removeClass('selected');
@@ -128,15 +128,15 @@ $(function () {
             $('.hands-built').html('');
             $('.move').hide();
             //$('#gamename').html(data.game_name)
-            addToDom('Table', 'Table', data.table, true, false, 0);
+            addToDom('Table', 'Table', data.table, true, false, 10);
             for (var i = 0; i < data.players.length; i++) {
                 if (data.users[i] != user) {
                     addToDom('player', data.users[i] ? data.users[i] : data.players[i].name, data.players[i].hand, false, false, i);
                 } else {
-                    addToDom('self', 'Me', data.players[i].hand, false, true, 0);
+                    addToDom('self', 'Me', data.players[i].hand, false, true, i);
                 }
             }
-            addToDom('discard', 'Discards', data.discards, false, false, 0);
+            addToDom('discard', 'Discards', data.discards, false, false, 10);
             $('#clues').html('Clues: ' + data.clues);
             $('#burns').html('Burns: ' + data.burns);
             $('#deck').html('Deck: ' + data.deck.length);
@@ -153,6 +153,16 @@ $(function () {
 
             if (parseInt($('#clues').html().split('Burns: ')[1]) <= 0) {
                 alert('You lost!');
+                return;
+            }
+
+            if (data.last_turn_count == data.num_players) {
+                var points = 0;
+                for (var j = 0; j < data.table.length; j++) {
+                    points += parseInt(data.table[j]);
+                }
+                alert('game over! you got ' + points + ' points.');
+                return;
             }
 
             if (data.last_move != '') {
@@ -186,6 +196,8 @@ $(function () {
                     //location.reload();
                 },
                 error: function (data, status) {
+                    $('#clue').show();
+                    alert('there was an error, please try again');
                     console.log(data + ' ' + status);
                 }
             });
@@ -195,6 +207,11 @@ $(function () {
             var url = use ? '/home/play' : '/home/discard';
             var numcards = $('.self .card.selected').length;
             if (numcards != 1) {
+                if (use) {
+                    $('#use').show();
+                } else {
+                    $('#discard').show();
+                }
                 alert('wrong number of cards selected');
                 return;
             }
@@ -209,16 +226,24 @@ $(function () {
                     //location.reload();
                 },
                 error: function (data, status) {
+                    if (use) {
+                        $('#use').show();
+                    } else {
+                        $('#discard').show();
+                    }
+                    alert('there was an error, please try again');
                     console.log(data + ' ' + status);
                 }
             });
         }
 
         $('#use').click(function () {
+            $(this).hide();
             useOrDiscard(true);
         });
 
         $('#discard').click(function () {
+            $(this).hide();
             useOrDiscard(false);
         });
 
@@ -249,13 +274,16 @@ $(function () {
         }
 
         $('#clue').click(function () {
+            $(this).hide();
             if (parseInt($('#clues').html().split('Clues: ')[1]) <= 0) {
                 alert('there are no more clues to give');
+                $(this).show();
                 return;
             }
 
             if ($('.player .card.selected').length < 1) {
                 alert('please select at least one card');
+                $(this).show();
                 return;
             }
 
@@ -281,6 +309,7 @@ $(function () {
             });
             if (multiple) {
                 alert('can only hint to one person');
+                $(this).show();
                 return;
             }
             var indexes = '';
@@ -318,11 +347,9 @@ $(function () {
 
     } else {
         alert('the game is full or something went wrong, sorry');
+        window.location = '/home';
     }
 
-    $('#backbutton').click(function () {
-        window.location = '/home';
-    })
 
     var connection = $.hubConnection("http://mukkhanabi.azurewebsites.net");
     var dataHubProxy = connection.createHubProxy('hanabihub');

@@ -95,7 +95,6 @@ namespace Hanabi
             GameEntity updateEntity = (GameEntity)retrievedResult.Result;
             if(updateEntity!=null)
             {
-                // check if clues == 0, if so move is illegal
                 GameData gameData = updateEntity.gameData();
                 int index = gameData.getUsers().IndexOf(username); // not needed now
                 for (int i = 0; i < indexes.Length; i++)
@@ -112,6 +111,10 @@ namespace Hanabi
                 gameData.last_move = username + " gave " + gameData.getUsers()[to] + " a clue";
                 gameData.clues--;
                 gameData.turn++;
+                if (gameData.getDeck().Count() == 0)
+                {
+                    gameData.last_turn_count++;
+                }
                 updateEntity = new GameEntity(gameData);
                 TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(updateEntity);
                 table.Execute(insertOrReplaceOperation);
@@ -138,6 +141,10 @@ namespace Hanabi
                 {
                     CardData card = gameData.getDeck().Pop();
                     gameData.getPlayers()[index].getHand().Add(card);
+                }
+                else
+                {
+                    gameData.last_turn_count++;
                 }
                 gameData.last_move = username + " discarded a card";
                 gameData.turn++;
@@ -167,6 +174,10 @@ namespace Hanabi
                     {
                         gameData.getTable()[i]++;
                         // add clue if 5
+                        if (playedCard.num == 5 && gameData.clues != 8)
+                        {
+                            gameData.clues++;
+                        }
                         valid = true;
                         break;
                     }
@@ -184,6 +195,10 @@ namespace Hanabi
                 {
                     CardData card = gameData.getDeck().Pop();
                     gameData.getPlayers()[index].getHand().Add(card);
+                }
+                else
+                {
+                    gameData.last_turn_count++;
                 }
                 gameData.turn++;
                 gameData.last_move = username + " played a card";
